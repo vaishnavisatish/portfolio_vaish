@@ -1,0 +1,9 @@
+{
+  "name": "vaishnavi-portfolio-chatbot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Resume Q&A chatbot backend for Vaishnavi Satish's portfolio site",
+  "engines": {
+    "node": ">=18"
+  }
+}

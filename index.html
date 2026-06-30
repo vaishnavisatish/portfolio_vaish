@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vaishnavi Satish | AI/ML Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:    #09090f;
+  --bg2:   #0e0e18;
+  --bg3:   #13131f;
+  --card:  #101020;
+  --card2: #16162a;
+  --b:     rgba(180,160,255,0.08);
+  --b2:    rgba(180,160,255,0.14);
+  --lav:   #b39dfc;
+  --lav2:  #9b87f5;
+  --ld:    rgba(179,157,252,0.10);
+  --ll:    rgba(179,157,252,0.18);
+  --grn:   #4ade80;
+  --pnk:   #f472b6;
+  --t1:    #f0eeff;
+  --t2:    #8b89a8;
+  --t3:    #42405c;
+  --nav:   260px;
+  --r:     14px;
+  --ease:  cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--t1);font-family:'Bricolage Grotesque',sans-serif;font-size:15px;line-height:1.7;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-thumb{background:var(--ll);border-radius:4px;}
+
+/* ══ LAYOUT ══ */
+.shell{display:flex;min-height:100vh;}
+
+/* ══ SIDEBAR (naimur style) ══ */
+.sidebar{
+  position:fixed;top:0;left:0;width:var(--nav);height:100vh;
+  background:var(--bg2);border-right:1px solid var(--b);
+  display:flex;flex-direction:column;padding:2rem 1.4rem;z-index:200;
+}
+.s-logo{font-size:1.3rem;font-weight:800;letter-spacing:-0.04em;color:var(--t1);margin-bottom:0.2rem;}
+.s-logo span{color:var(--lav);}
+.s-sub{font-family:'DM Mono',monospace;font-size:0.61rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--t3);margin-bottom:2.5rem;}
+.s-nav{display:flex;flex-direction:column;gap:2px;flex:1;}
+.s-link{display:flex;align-items:center;gap:0.75rem;padding:0.55rem 0.85rem;border-radius:10px;font-size:0.82rem;font-weight:500;color:var(--t2);text-decoration:none;transition:all .2s;}
+.s-dot{width:7px;height:7px;border-radius:50%;background:var(--b2);flex-shrink:0;transition:all .2s;}
+.s-link:hover,.s-link.on{background:var(--ld);color:var(--lav);}
+.s-link:hover .s-dot,.s-link.on .s-dot{background:var(--lav);box-shadow:0 0 8px var(--lav);}
+.s-bottom{padding-top:1.25rem;border-top:1px solid var(--b);display:flex;flex-direction:column;gap:0.75rem;}
+
+/* coder-style action buttons */
+.cmd-btn{
+  display:flex;align-items:center;gap:0.55rem;
+  padding:0.5rem 0.85rem;border-radius:8px;
+  background:var(--bg3);border:1px solid var(--b2);
+  font-family:'DM Mono',monospace;font-size:0.72rem;
+  color:var(--t2);cursor:pointer;transition:all .2s;width:100%;text-align:left;
+}
+.cmd-btn .cmd-prefix{color:var(--lav);margin-right:2px;}
+.cmd-btn:hover{border-color:var(--ll);color:var(--lav);background:var(--ld);}
+.cmd-btn.copied{color:var(--grn);border-color:rgba(74,222,128,.25);background:rgba(74,222,128,.06);}
+.s-socials{display:flex;gap:0.45rem;}
+.s-soc{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border:1px solid var(--b);color:var(--t3);text-decoration:none;transition:all .2s;flex-shrink:0;}
+.s-soc:hover{background:var(--ld);border-color:var(--ll);color:var(--lav);}
+.s-soc svg{width:15px;height:15px;fill:currentColor;}
+
+/* ══ MAIN ══ */
+.main{margin-left:var(--nav);flex:1;min-width:0;}
+
+/* ══ HERO (naimur-style full screen) ══ */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:5rem 4rem;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--b);
+}
+.hero-status{
+  display:inline-flex;align-items:center;gap:0.55rem;
+  font-family:'DM Mono',monospace;font-size:0.68rem;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--grn);background:rgba(74,222,128,.06);
+  border:1px solid rgba(74,222,128,.18);
+  padding:0.28rem 0.75rem;border-radius:20px;
+  width:fit-content;margin-bottom:2rem;
+}
+.hero-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+.hero-name{
+  font-size:clamp(4rem,8vw,7.5rem);font-weight:800;
+  letter-spacing:-0.05em;line-height:.95;margin-bottom:1.6rem;
+}
+.hero-name .n1{display:block;color:var(--t1);}
+.hero-name .n2{display:block;color:transparent;-webkit-text-stroke:2px var(--lav);opacity:.65;}
+
+.hero-tagline{
+  font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:clamp(1.05rem,2vw,1.35rem);
+  color:var(--t2);max-width:520px;margin-bottom:2rem;line-height:1.65;
+}
+.hero-tagline strong{font-style:normal;font-family:'Bricolage Grotesque',sans-serif;color:var(--t1);font-weight:600;}
+
+.hero-chips{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:2.8rem;}
+.chip{font-size:0.68rem;font-family:'DM Mono',monospace;padding:0.28rem 0.7rem;border-radius:20px;border:1px solid var(--b2);color:var(--t2);}
+.chip.lav{border-color:var(--ll);color:var(--lav);background:var(--ld);}
+.chip.g{border-color:rgba(74,222,128,.2);color:var(--grn);background:rgba(74,222,128,.05);}
+.chip.p{border-color:rgba(244,114,182,.2);color:var(--pnk);background:rgba(244,114,182,.05);}
+
+.hero-cta{display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;}
+.btn{display:inline-flex;align-items:center;gap:0.45rem;padding:0.72rem 1.5rem;border-radius:10px;font-size:0.82rem;font-weight:600;font-family:'Bricolage Grotesque',sans-serif;text-decoration:none;transition:all .2s;border:none;cursor:pointer;}
+.btn-lav{background:var(--lav);color:#160820;}
+.btn-lav:hover{background:var(--lav2);transform:translateY(-2px);box-shadow:0 8px 22px rgba(179,157,252,.28);}
+.btn-ghost{background:transparent;border:1px solid var(--b2);color:var(--t2);}
+.btn-ghost:hover{border-color:var(--ll);color:var(--lav);transform:translateY(-2px);}
+
+/* hero blobs */
+.hblob{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;opacity:.12;}
+.hblob-1{width:600px;height:600px;background:#4020a0;top:-120px;right:-80px;}
+.hblob-2{width:400px;height:400px;background:#0a2050;bottom:-80px;left:100px;}
+.hero-left-content{position:relative;z-index:1;}
+
+/* scroll indicator */
+.scroll-hint{position:absolute;bottom:2.5rem;left:4rem;display:flex;align-items:center;gap:0.5rem;font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--t3);letter-spacing:0.1em;}
+.scroll-arrow{width:16px;height:16px;border-right:1px solid var(--t3);border-bottom:1px solid var(--t3);transform:rotate(45deg);animation:bounce .8s ease-in-out infinite alternate;}
+@keyframes bounce{0%{transform:rotate(45deg) translateY(0);}100%{transform:rotate(45deg) translateY(4px);}}
+
+/* ══ TICKER ══ */
+.ticker-wrap{overflow:hidden;border-bottom:1px solid var(--b);background:var(--bg2);padding:.78rem 0;}
+.ticker-inner{display:flex;gap:2rem;width:max-content;animation:tick 28s linear infinite;}
+@keyframes tick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ti{display:flex;align-items:center;gap:.5rem;font-size:.7rem;font-family:'DM Mono',monospace;color:var(--t3);white-space:nowrap;}
+.ti .star{color:var(--lav);font-size:.5rem;}
+
+/* ══ CONTENT WRAPPER ══ */
+.wrap{max-width:920px;margin:0 auto;padding:0 4rem;}
+section.s{padding:6rem 0;border-bottom:1px solid var(--b);}
+section.s:last-child{border-bottom:none;}
+
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lav);background:var(--ld);border:1px solid var(--ll);padding:.22rem .65rem;border-radius:20px;margin-bottom:.65rem;}
+h2.sh{font-size:clamp(1.9rem,3vw,2.7rem);font-weight:800;letter-spacing:-.035em;line-height:1.12;margin-bottom:.5rem;}
+h2.sh em{font-style:normal;color:var(--lav);}
+.sh-sub{font-family:'Instrument Serif',serif;font-style:italic;color:var(--t2);font-size:.97rem;margin-bottom:2.5rem;}
+
+/* ══ ABOUT ══ */
+.about-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start;}
+.about-p{color:var(--t2);font-size:.91rem;margin-bottom:1rem;}
+.about-p strong{color:var(--t1);}
+.mcards{display:flex;flex-direction:column;gap:.8rem;}
+.mc{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:1rem;transition:all .2s;}
+.mc:hover{border-color:var(--ll);transform:translateX(4px);}
+.mc-n{font-size:1.65rem;font-weight:800;min-width:72px;line-height:1;}
+.mc-n.lav{color:var(--lav);}
+.mc-n.g{color:var(--grn);}
+.mc-n.p{color:var(--pnk);}
+.mc-l{font-size:.78rem;color:var(--t2);}
+.mc-l strong{display:block;font-size:.85rem;color:var(--t1);margin-bottom:.1rem;}
+
+/* ══ EXPERIENCE ══ */
+.exp-rows{display:flex;flex-direction:column;}
+.er{display:grid;grid-template-columns:140px 1fr;gap:2rem;border-top:1px solid var(--b);padding:2rem 0;transition:background .2s;border-radius:0;}
+.er:last-child{border-bottom:1px solid var(--b);}
+.er:hover{background:var(--ld);border-radius:var(--r);padding:2rem 1rem;margin:0 -1rem;}
+.er-date{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--t3);padding-top:.2rem;line-height:1.6;}
+.er-badge{display:inline-block;margin-top:.5rem;font-size:.6rem;padding:.15rem .5rem;border-radius:20px;border:1px solid var(--ll);color:var(--lav);background:var(--ld);font-family:'DM Mono',monospace;}
+.er-logo{width:30px;height:30px;border-radius:8px;background:var(--bg3);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+.er-co{display:flex;align-items:center;gap:.65rem;margin-bottom:.25rem;}
+.er-co-name{font-size:.8rem;color:var(--lav);font-weight:600;}
+.er-role{font-size:1rem;font-weight:700;color:var(--t1);margin-bottom:.9rem;}
+.er-pts{list-style:none;display:flex;flex-direction:column;gap:.45rem;}
+.er-pts li{font-size:.83rem;color:var(--t2);padding-left:1.1rem;position:relative;}
+.er-pts li::before{content:'▸';position:absolute;left:0;top:.22rem;color:var(--lav);font-size:.62rem;}
+.er-pts li strong{color:var(--t1);}
+
+/* ══ PROJECTS (filterable) ══ */
+.filter-bar{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:2rem;}
+.filt{font-size:.7rem;font-family:'DM Mono',monospace;padding:.3rem .8rem;border-radius:20px;background:var(--card);border:1px solid var(--b2);color:var(--t2);cursor:pointer;transition:all .2s;}
+.filt:hover{border-color:var(--ll);color:var(--lav);}
+.filt.active{background:var(--ld);border-color:var(--ll);color:var(--lav);}
+
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(390px,1fr));gap:1.25rem;}
+.pc{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:1.8rem 2rem;transition:all .25s;position:relative;overflow:hidden;}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--lav),var(--pnk));transform:scaleX(0);transition:transform .3s;transform-origin:left;}
+.pc:hover{border-color:var(--ll);transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,.4);}
+.pc:hover::before{transform:scaleX(1);}
+.pc.hidden{display:none;}
+.pc-tag{display:inline-flex;font-size:.62rem;font-family:'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--pnk);border:1px solid rgba(244,114,182,.18);background:rgba(244,114,182,.06);padding:.18rem .55rem;border-radius:20px;margin-bottom:.9rem;}
+.pc-title{font-size:1.02rem;font-weight:700;color:var(--t1);margin-bottom:.7rem;line-height:1.3;}
+.pc-desc{font-size:.83rem;color:var(--t2);line-height:1.6;margin-bottom:1.1rem;}
+.pc-pills{display:flex;flex-wrap:wrap;gap:.35rem;}
+.pp{font-size:.62rem;font-family:'DM Mono',monospace;padding:.2rem .5rem;border-radius:6px;background:var(--card2);border:1px solid var(--b2);color:var(--t3);}
+
+/* ══ SKILLS ══ */
+.skill-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.25rem;}
+.sk-group{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:1.4rem;transition:border-color .2s;}
+.sk-group:hover{border-color:var(--ll);}
+.sk-head{font-family:'DM Mono',monospace;font-size:.65rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--lav);margin-bottom:.9rem;padding-bottom:.6rem;border-bottom:1px solid var(--b);}
+.sk-items{display:flex;flex-wrap:wrap;gap:.5rem;}
+.sk-item{display:flex;align-items:center;gap:.4rem;padding:.28rem .65rem;border-radius:8px;background:var(--card2);border:1px solid var(--b2);color:var(--t1);font-size:.72rem;transition:all .15s;}
+.sk-item:hover{border-color:var(--ll);color:var(--lav);}
+.sk-item img{width:15px;height:15px;object-fit:contain;flex-shrink:0;}
+
+/* ══ PUBLICATIONS ══ */
+.pub-stack{display:flex;flex-direction:column;gap:1rem;}
+.pub{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:1.5rem;display:grid;grid-template-columns:42px 1fr;gap:1.2rem;align-items:start;transition:border-color .2s;}
+.pub:hover{border-color:var(--ll);}
+.pub-ico{width:42px;height:42px;border-radius:10px;background:var(--ld);border:1px solid var(--ll);display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.pub-t{font-weight:700;font-size:.93rem;color:var(--t1);margin-bottom:.3rem;line-height:1.4;}
+.pub-v{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--lav);margin-bottom:.4rem;}
+.pub-d{font-size:.81rem;color:var(--t2);}
+
+/* ══ EDUCATION ══ */
+.edu-stack{display:flex;flex-direction:column;gap:1.1rem;}
+.edu{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:1.5rem 1.8rem;display:flex;align-items:center;gap:1.4rem;transition:all .2s;}
+.edu:hover{border-color:var(--ll);transform:translateX(4px);}
+.edu-ico{width:44px;height:44px;border-radius:11px;background:var(--ld);border:1px solid var(--ll);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.edu-deg{font-weight:700;font-size:.95rem;color:var(--t1);margin-bottom:.2rem;}
+.edu-uni{font-size:.8rem;color:var(--lav);margin-bottom:.2rem;}
+.edu-meta{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--t3);}
+.edu-gpa{margin-left:auto;flex-shrink:0;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--grn);background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.18);padding:.22rem .6rem;border-radius:20px;}
+
+/* ══ CONTACT ══ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;overflow:hidden;}
+.contact-left{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:2.5rem;}
+.contact-left h3{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--t1);margin-bottom:.6rem;}
+.contact-left p{font-size:.88rem;color:var(--t2);margin-bottom:1.8rem;line-height:1.65;}
+.contact-btns{display:flex;flex-direction:column;gap:.6rem;}
+.c-btn{display:flex;align-items:center;gap:.55rem;padding:.65rem 1rem;border-radius:10px;font-size:.8rem;font-weight:600;text-decoration:none;transition:all .2s;border:1px solid var(--b2);background:var(--card2);color:var(--t2);}
+.c-btn:hover{border-color:var(--ll);color:var(--lav);transform:translateX(4px);}
+.c-btn.primary{background:var(--lav);color:#160820;border-color:var(--lav);}
+.c-btn.primary:hover{background:var(--lav2);transform:translateX(4px);}
+
+.contact-right{display:flex;flex-direction:column;gap:.85rem;}
+.c-info{display:flex;align-items:center;gap:.85rem;padding:.9rem 1rem;border-radius:10px;background:var(--card);border:1px solid var(--b);}
+.c-ico{width:32px;height:32px;border-radius:8px;background:var(--ld);border:1px solid var(--ll);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;}
+.c-lbl{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--t3);margin-bottom:.1rem;}
+.c-val{font-size:.83rem;color:var(--t1);font-weight:500;}
+.c-val a{color:var(--lav);text-decoration:none;}
+.c-val a:hover{text-decoration:underline;}
+
+/* ══ FOOTER ══ */
+footer{max-width:920px;margin:0 auto;padding:2rem 4rem 3rem;display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--t3);}
+
+/* ══ REVEAL ══ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ══ MOBILE ══ */
+.mob-bar{display:none;position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(9,9,15,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--b);padding:.9rem 1.5rem;align-items:center;justify-content:space-between;}
+.mob-logo{font-weight:800;font-size:1rem;color:var(--t1);}
+.mob-logo span{color:var(--lav);}
+.mob-toggle{background:none;border:none;cursor:pointer;color:var(--t2);font-size:1.2rem;}
+.mob-draw{display:none;position:fixed;inset:0;z-index:400;background:var(--bg2);padding:1.5rem;flex-direction:column;gap:4px;overflow-y:auto;}
+.mob-draw.open{display:flex;}
+.mob-x{background:none;border:none;cursor:pointer;color:var(--t2);font-size:1.4rem;align-self:flex-end;margin-bottom:1rem;}
+
+@media(max-width:960px){
+  .sidebar{display:none;} .main{margin-left:0;} .mob-bar{display:flex;}
+  #hero{padding:5rem 1.5rem;} .wrap{padding:0 1.5rem;} section.s{padding:4rem 0;}
+  .about-cols,.contact-grid{grid-template-columns:1fr;} .proj-grid{grid-template-columns:1fr;}
+  .er{grid-template-columns:1fr;} .edu{flex-wrap:wrap;} .edu-gpa{margin-left:0;}
+  footer{flex-direction:column;gap:.4rem;text-align:center;padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE -->
+<header class="mob-bar">
+  <span class="mob-logo">VS<span>.</span></span>
+  <button class="mob-toggle" onclick="document.getElementById('md').classList.add('open')">☰</button>
+</header>
+<div class="mob-draw" id="md">
+  <button class="mob-x" onclick="document.getElementById('md').classList.remove('open')">✕</button>
+  <a class="s-link" href="#hero"    onclick="document.getElementById('md').classList.remove('open')"><span class="s-dot"></span>Home</a>
+  <a class="s-link" href="#about"   onclick="document.getElementById('md').classList.remove('open')"><span class="s-dot"></span>About</a>
+  <a class="s-link" href="#experience" onclick="document.getElementById('md').classList.remove('open')"><span class="s-dot"></span>Experience</a>
+  <a class="s-link" href="#projects" onclick="document.getElementById('md').classList.remove('open')"><span class="s-dot"></span>Projects</a>
+  <a class="s-link" href="#skills"  onclick="document.getElementById('md').classList.remove('open')"><span class="s-dot"></span>Skills</a>
+  <a class="s-link" href="#publications" onclick="document.getElementById('md').classList.remove('open')"><span class="s-dot"></span>Publications</a>
+  <a class="s-link" href="#education" onclick="document.getElementById('md').classList.remove('open')"><span class="s-dot"></span>Education</a>
+  <a class="s-link" href="#contact" onclick="document.getElementById('md').classList.remove('open')"><span class="s-dot"></span>Contact</a>
+</div>
+
+<div class="shell">
+<!-- ════ SIDEBAR ════ -->
+<aside class="sidebar">
+  <div class="s-logo">VS<span>.</span></div>
+  <div class="s-sub">AI / ML Engineer</div>
+  <nav class="s-nav">
+    <a class="s-link on" href="#hero"><span class="s-dot"></span>Home</a>
+    <a class="s-link" href="#about"><span class="s-dot"></span>About</a>
+    <a class="s-link" href="#experience"><span class="s-dot"></span>Experience</a>
+    <a class="s-link" href="#projects"><span class="s-dot"></span>Projects</a>
+    <a class="s-link" href="#skills"><span class="s-dot"></span>Skills</a>
+    <a class="s-link" href="#publications"><span class="s-dot"></span>Publications</a>
+    <a class="s-link" href="#education"><span class="s-dot"></span>Education</a>
+    <a class="s-link" href="#contact"><span class="s-dot"></span>Contact</a>
+  </nav>
+  <div class="s-bottom">
+    <div class="s-socials">
+      <a class="s-soc" href="https://github.com/vaishnavisatish" target="_blank" title="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a class="s-soc" href="https://linkedin.com/in/vaisatish" target="_blank" title="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a class="s-soc" href="mailto:vaishnavimsatish@gmail.com" title="Email">
+        <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- ════ MAIN ════ -->
+<main class="main">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hblob hblob-1"></div>
+  <div class="hblob hblob-2"></div>
+  <div class="hero-left-content">
+    <div class="hero-status">MS Autonomy @ Purdue &nbsp;·&nbsp; GPA 4.0</div>
+    <h1 class="hero-name">
+      <span class="n1">Vaishnavi</span>
+      <span class="n2">Satish</span>
+    </h1>
+    <p class="hero-tagline">
+      <strong>Robotics &amp; AI Engineer</strong> building production-grade intelligent systems —
+      from embodied navigation and simulation to LLM agents, RAG pipelines, and cloud-native APIs.
+    </p>
+    <div class="hero-chips">
+      <span class="chip lav">ROS2 · SLAM · Autonomy</span>
+      <span class="chip g">LangGraph · Agentic AI</span>
+      <span class="chip p">RAG · AWS Bedrock</span>
+      <span class="chip">PyTorch · Computer Vision</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-lav">View Projects ↓</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-arrow"></div>scroll to explore</div>
+</section>
+
+<!-- TECH TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ti"><span class="star">✦</span>LangGraph</span>
+    <span class="ti"><span class="star">✦</span>AWS Bedrock</span>
+    <span class="ti"><span class="star">✦</span>FastAPI</span>
+    <span class="ti"><span class="star">✦</span>QLoRA · DPO</span>
+    <span class="ti"><span class="star">✦</span>React</span>
+    <span class="ti"><span class="star">✦</span>Go</span>
+    <span class="ti"><span class="star">✦</span>Docker · Kubernetes</span>
+    <span class="ti"><span class="star">✦</span>FAISS · Hugging Face</span>
+    <span class="ti"><span class="star">✦</span>Argo CD · Jenkins</span>
+    <span class="ti"><span class="star">✦</span>PyTorch</span>
+    <span class="ti"><span class="star">✦</span>Node.js</span>
+    <span class="ti"><span class="star">✦</span>ROS2 · Gazebo</span>
+    <span class="ti"><span class="star">✦</span>SLAM · Navigation</span>
+    <span class="ti"><span class="star">✦</span>CARLA · YOLOv8</span>
+    <span class="ti"><span class="star">✦</span>OpenCV · MediaPipe</span>
+    <span class="ti"><span class="star">✦</span>LangGraph</span>
+    <span class="ti"><span class="star">✦</span>AWS Bedrock</span>
+    <span class="ti"><span class="star">✦</span>FastAPI</span>
+    <span class="ti"><span class="star">✦</span>QLoRA · DPO</span>
+    <span class="ti"><span class="star">✦</span>React</span>
+    <span class="ti"><span class="star">✦</span>Go</span>
+    <span class="ti"><span class="star">✦</span>Docker · Kubernetes</span>
+    <span class="ti"><span class="star">✦</span>FAISS · Hugging Face</span>
+    <span class="ti"><span class="star">✦</span>Argo CD · Jenkins</span>
+    <span class="ti"><span class="star">✦</span>PyTorch</span>
+    <span class="ti"><span class="star">✦</span>Node.js</span>
+    <span class="ti"><span class="star">✦</span>ROS2 · Gazebo</span>
+    <span class="ti"><span class="star">✦</span>SLAM · Navigation</span>
+    <span class="ti"><span class="star">✦</span>CARLA · YOLOv8</span>
+    <span class="ti"><span class="star">✦</span>OpenCV · MediaPipe</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ABOUT -->
+<section class="s" id="about">
+  <div class="eyebrow reveal">01 — About</div>
+  <h2 class="sh reveal">Intelligence, engineered<br/><em>end to end.</em></h2>
+  <p class="sh-sub reveal">A reflection of how I think and build.</p>
+  <div class="about-cols reveal">
+    <div>
+      <p class="about-p">I'm an <strong>AI/ML Engineer</strong> finishing my Master's in Autonomy & AI at Purdue University (4.0 GPA, May 2026). I build complete, production-ready AI systems — from the LLM agent layer down to the API and the frontend.</p>
+      <p class="about-p">I've shipped LangGraph agentic workflows processing clinical data at <strong>1k req/min</strong> (10× prior throughput) and replaced a legacy enterprise search system with a RAG pipeline that hit <strong>97% accuracy</strong> at 90% lower cost.</p>
+      <p class="about-p">Comfortable across the full stack — <strong>Python, Go, React, AWS</strong> — which means I take an AI idea all the way to a deployed, user-facing product without handoffs between teams.</p>
+      <p class="about-p">I've also published <strong>2 peer-reviewed papers</strong> (IEEE + JATIT) and built GPT-2 from scratch to understand transformers deeply, not just use them.</p>
+    </div>
+    <div class="mcards">
+      <div class="mc"><div class="mc-n lav">4.0</div><div class="mc-l"><strong>Purdue GPA</strong>MS Autonomy & AI · May 2026</div></div>
+      <div class="mc"><div class="mc-n g">97%</div><div class="mc-l"><strong>RAG Accuracy</strong>AWS Bedrock · Production</div></div>
+      <div class="mc"><div class="mc-n lav">10×</div><div class="mc-l"><strong>Throughput Gained</strong>SDTM API · 1k req/min</div></div>
+      <div class="mc"><div class="mc-n p">90%</div><div class="mc-l"><strong>Cost Reduction</strong>Enterprise RAG vs. legacy</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="s" id="experience">
+  <div class="eyebrow reveal">02 — Experience</div>
+  <h2 class="sh reveal">Where code<br/><em>met production.</em></h2>
+  <p class="sh-sub reveal">A summary of the roles and work that shaped my career.</p>
+  <div class="exp-rows reveal">
+    <div class="er">
+      <div class="er-date">Aug – Dec 2025<div class="er-badge">Latest</div></div>
+      <div>
+        <div class="er-co"><div class="er-logo">🧬</div><div class="er-co-name">Saama Technologies · Campbell, CA</div></div>
+        <div class="er-role">Software Engineering Intern (AI)</div>
+        <ul class="er-pts">
+          <li>Built an <strong>OCR-driven RAG system on AWS</strong> to extract and summarise clinical trial protocols — ~60% improvement in retrieval accuracy.</li>
+          <li>Automated <strong>R script generation and self-correction</strong> via an LLM agent, reducing analyst effort by 40%.</li>
+          <li>Designed an <strong>LLM feedback loop</strong> for document search and code generation in a Pfizer product — 30% boost in user satisfaction.</li>
+          <li>Developed a <strong>batch-processing API for SDTM</strong> at 1k req/min — 10× the prior throughput.</li>
+          <li>Engineered a <strong>LangGraph agentic workflow</strong> for SDTM domain recommendation, achieving >85% mapping accuracy.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="er">
+      <div class="er-date">Jun – Aug 2025</div>
+      <div>
+        <div class="er-co"><div class="er-logo">📦</div><div class="er-co-name">Pitney Bowes Inc. · Shelton, CT</div></div>
+        <div class="er-role">Data Science Intern</div>
+        <ul class="er-pts">
+          <li>Designed a <strong>production RAG-based Article Search API on AWS</strong>, replacing legacy Coveo search — 97% accuracy, 90% cost reduction.</li>
+          <li>Built an <strong>automated Golang ingestion pipeline via Argo CD</strong> with intelligent chunking for daily Knowledge Base updates.</li>
+          <li>Improved <strong>ambiguous HS code classification to 94%</strong> by curating a domain dataset + building a question-generation bot.</li>
+          <li>Developed a <strong>computer vision model</strong> to extract handwritten addresses from Kiosk camera images at 98% accuracy.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="s" id="projects">
+  <div class="eyebrow reveal">03 — Projects</div>
+  <h2 class="sh reveal">Built to reason,<br/><em>retrieve & ship.</em></h2>
+  <p class="sh-sub reveal">Filter by area to explore the work.</p>
+  <div class="filter-bar reveal">
+    <button class="filt active" data-filter="all">All</button>
+    <button class="filt" data-filter="agentic">Agentic AI</button>
+    <button class="filt" data-filter="rag">RAG</button>
+    <button class="filt" data-filter="fullstack">Full-Stack</button>
+    <button class="filt" data-filter="ml">ML / Training</button>
+    <button class="filt" data-filter="robotics">Robotics</button>
+    <button class="filt" data-filter="cv">Computer Vision</button>
+  </div>
+  <div class="proj-grid reveal">
+
+    <div class="pc" data-cats="agentic fullstack rag">
+      <div class="pc-tag">Agentic AI · Full-Stack</div>
+      <div class="pc-title">LangGraph AI Agent with Web Search</div>
+      <p class="pc-desc">Full-stack AI agent using LangGraph and OpenAI/Groq LLMs for real-time query resolution with dynamic tool usage. React + HTML/CSS/JS frontend → FastAPI backend via REST APIs, with persistent conversation memory.</p>
+      <div class="pc-pills"><span class="pp">LangGraph</span><span class="pp">OpenAI/Groq</span><span class="pp">FastAPI</span><span class="pp">React</span><span class="pp">REST APIs</span></div>
+    </div>
+
+    <div class="pc" data-cats="rag">
+      <div class="pc-tag">RAG · AWS</div>
+      <div class="pc-title">ChatPDF — RAG over PDFs via AWS Bedrock</div>
+      <p class="pc-desc">Production-grade document Q&A using Titan Embeddings and FAISS for vector storage. Responsive web querying interface, AWS-native end to end. Built to replace manual document search with instant, accurate retrieval.</p>
+      <div class="pc-pills"><span class="pp">AWS Bedrock</span><span class="pp">Titan Embeddings</span><span class="pp">FAISS</span><span class="pp">Python</span></div>
+    </div>
+
+    <div class="pc" data-cats="agentic rag ml">
+      <div class="pc-tag">Self-Improving AI · Fine-Tuning</div>
+      <div class="pc-title">Self-Improving RAG Agent</div>
+      <p class="pc-desc">Self-correcting LangGraph system with DSPy prompt optimisation and DPO-based QLoRA fine-tuning for continuous adaptation. An LLM-as-a-Judge retry loop auto-diagnoses reasoning failures — reducing failure rates by 40%.</p>
+      <div class="pc-pills"><span class="pp">LangGraph</span><span class="pp">DSPy</span><span class="pp">QLoRA/DPO</span><span class="pp">LLM-as-Judge</span></div>
+    </div>
+
+    <div class="pc" data-cats="ml">
+      <div class="pc-tag">From Scratch · PyTorch</div>
+      <div class="pc-title">Instruction-Tuned GPT-2 from Scratch</div>
+      <p class="pc-desc">Multi-head attention and transformer blocks implemented in PyTorch from scratch, then fine-tuned for instruction following. Eval score: 80. Built to understand how transformers work at every layer — not just use them.</p>
+      <div class="pc-pills"><span class="pp">PyTorch</span><span class="pp">Transformers</span><span class="pp">Fine-tuning</span><span class="pp">Multi-head Attention</span></div>
+    </div>
+
+    <div class="pc" data-cats="robotics">
+      <div class="pc-tag">Robotics · SLAM</div>
+      <div class="pc-title">Autonomous Mapping &amp; Navigation (ROS2 + Gazebo)</div>
+      <p class="pc-desc">Full SLAM-based navigation system built from scratch on a TurtleBot3 — frontier exploration, occupancy grid mapping, and motion planning for real-time navigation in unmapped environments. Achieved 96% map coverage with &lt;5 cm localization error.</p>
+      <div class="pc-pills"><span class="pp">ROS2</span><span class="pp">Gazebo</span><span class="pp">SLAM</span><span class="pp">Frontier Exploration</span><span class="pp">Motion Planning</span></div>
+    </div>
+
+    <div class="pc" data-cats="robotics cv">
+      <div class="pc-tag">Robotics · Computer Vision</div>
+      <div class="pc-title">Haptic-Feedback Robotic Arm for Telemedicine</div>
+      <p class="pc-desc">C++ robotic teleoperation system for remote surgical assistance. Used OpenCV and MediaPipe for 94% pose estimation accuracy, enabling real-time motion replication via closed-loop visual servoing, haptic force feedback, and inverse kinematics — 3% end-effector error in simulation.</p>
+      <div class="pc-pills"><span class="pp">C++</span><span class="pp">OpenCV</span><span class="pp">MediaPipe</span><span class="pp">Visual Servoing</span><span class="pp">Inverse Kinematics</span></div>
+    </div>
+
+    <div class="pc" data-cats="robotics cv ml">
+      <div class="pc-tag">Autonomy · Simulation</div>
+      <div class="pc-title">Autonomous Lane Switching via Eye-Gaze Tracking (CARLA)</div>
+      <p class="pc-desc">Full perception-to-control pipeline in CARLA for gaze-driven autonomous lane changes. Integrated YOLOv8 for real-time obstacle detection and trained a Random Forest classifier on gaze features — 96% accuracy at 10 ms latency.</p>
+      <div class="pc-pills"><span class="pp">CARLA</span><span class="pp">YOLOv8</span><span class="pp">Random Forest</span><span class="pp">Perception</span><span class="pp">Control</span></div>
+    </div>
+
+    <div class="pc" data-cats="ml cv">
+      <div class="pc-tag">ML · Analytics</div>
+      <div class="pc-title">Real-Time Manufacturing Machine Performance Monitoring</div>
+      <p class="pc-desc">Real-time manufacturing analytics system processing 500K+ daily sensor records. Built live KPI dashboards in Grafana and ML-powered predictive pipelines for machine health — 92% failure detection accuracy and 35% reduction in incident response time.</p>
+      <div class="pc-pills"><span class="pp">SQL</span><span class="pp">Grafana</span><span class="pp">ML Models</span><span class="pp">Predictive Maintenance</span><span class="pp">Sensor Data</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="s" id="skills">
+  <div class="eyebrow reveal">04 — Skills</div>
+  <h2 class="sh reveal">The full stack,<br/><em>end to end.</em></h2>
+  <p class="sh-sub reveal">Tools I reach for daily — and keep levelling up.</p>
+  <div class="skill-cats reveal">
+
+    <div class="sk-group">
+      <div class="sk-head">Robotics &amp; Simulation</div>
+      <div class="sk-items">
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ros/ros-original.svg" alt=""/>ROS2</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt=""/>Gazebo</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt=""/>CARLA</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt=""/>SLAM</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg" alt=""/>Visual Servoing</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt=""/>MPC / PID</div>
+      </div>
+    </div>
+
+    <div class="sk-group">
+      <div class="sk-head">AI &amp; GenAI</div>
+      <div class="sk-items">
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt=""/>LangGraph</div>
+        <div class="sk-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt=""/>GPT / LLMs</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt=""/>RAG</div>
+        <div class="sk-item"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt=""/>Hugging Face</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt=""/>QLoRA / LoRA</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt=""/>DSPy</div>
+      </div>
+    </div>
+
+    <div class="sk-group">
+      <div class="sk-head">ML & Data</div>
+      <div class="sk-items">
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" alt=""/>PyTorch</div>
+        <div class="sk-item"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt=""/>Hugging Face</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg" alt=""/>Scikit-learn</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt=""/>Pandas</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original.svg" alt=""/>NumPy</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opencv/opencv-original.svg" alt=""/>OpenCV</div>
+      </div>
+    </div>
+
+    <div class="sk-group">
+      <div class="sk-head">Backend & APIs</div>
+      <div class="sk-items">
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt=""/>Python</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" alt=""/>Go</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" alt=""/>FastAPI</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt=""/>Node.js</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt=""/>PostgreSQL</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" alt=""/>MySQL</div>
+      </div>
+    </div>
+
+    <div class="sk-group">
+      <div class="sk-head">Frontend</div>
+      <div class="sk-items">
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt=""/>React</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt=""/>HTML5</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt=""/>CSS3</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt=""/>JavaScript</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt=""/>TypeScript</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/streamlit/streamlit-original.svg" alt=""/>Streamlit</div>
+      </div>
+    </div>
+
+    <div class="sk-group">
+      <div class="sk-head">Cloud & Infra</div>
+      <div class="sk-items">
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt=""/>AWS</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt=""/>Docker</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kubernetes/kubernetes-original.svg" alt=""/>Kubernetes</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg" alt=""/>Terraform</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/argocd/argocd-original.svg" alt=""/>Argo CD</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jenkins/jenkins-original.svg" alt=""/>Jenkins</div>
+      </div>
+    </div>
+
+    <div class="sk-group">
+      <div class="sk-head">DevOps & Tools</div>
+      <div class="sk-items">
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt=""/>Git</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="" style="filter:invert(1) brightness(.7)"/>GitHub</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg" alt=""/>GH Actions</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg" alt=""/>Linux</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg" alt=""/>Postman</div>
+        <div class="sk-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt=""/>VS Code</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="s" id="publications">
+  <div class="eyebrow reveal">05 — Publications</div>
+  <h2 class="sh reveal">Peer-reviewed<br/><em>research.</em></h2>
+  <p class="sh-sub reveal">Milestones that validate rigorous, research-backed thinking.</p>
+  <div class="pub-stack reveal">
+    <div class="pub">
+      <div class="pub-ico">📄</div>
+      <div>
+        <div class="pub-t">Improving Semantic Segmentation of Medical Images with Fine-Tuning Techniques</div>
+        <div class="pub-v">JATIT · Peer-Reviewed · Aug 2024</div>
+        <div class="pub-d">Investigated fine-tuning strategies for deep learning models applied to medical image segmentation, demonstrating measurable improvements in pixel-level accuracy for clinical imaging datasets.</div>
+      </div>
+    </div>
+    <div class="pub">
+      <div class="pub-ico">📊</div>
+      <div>
+        <div class="pub-t">Forecasting Global Recession and Its Likely Fallout on India's Economy Using Machine Learning</div>
+        <div class="pub-v">IEEE · Peer-Reviewed · Oct 2023</div>
+        <div class="pub-d">Applied ML models to macroeconomic indicators to forecast global recession probability and model downstream impacts on India's economy — bridging data science with economic policy analysis.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="s" id="education">
+  <div class="eyebrow reveal">06 — Education</div>
+  <h2 class="sh reveal">Academic<br/><em>foundation.</em></h2>
+  <p class="sh-sub reveal">Where theory shaped how I think and build.</p>
+  <div class="edu-stack reveal">
+    <div class="edu">
+      <div class="edu-ico">🎓</div>
+      <div>
+        <div class="edu-deg">M.S. Engineering — Autonomy & AI</div>
+        <div class="edu-uni">Purdue University · West Lafayette, IN</div>
+        <div class="edu-meta">Aug 2024 – May 2026</div>
+      </div>
+      <div class="edu-gpa">4.0 / 4.0</div>
+    </div>
+    <div class="edu">
+      <div class="edu-ico">🎓</div>
+      <div>
+        <div class="edu-deg">B.Tech Electronics & Instrumentation</div>
+        <div class="edu-uni">JNTU · India · Minor in AI/ML</div>
+        <div class="edu-meta">Graduated May 2024</div>
+      </div>
+      <div class="edu-gpa">8.9 / 10</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="s" id="contact">
+  <div class="eyebrow reveal">07 — Contact</div>
+  <h2 class="sh reveal">Let's build something<br/><em>intelligent together.</em></h2>
+  <p class="sh-sub reveal">Open to AI Engineering, ML Engineering, and Full-Stack AI roles.</p>
+  <div class="contact-grid reveal">
+    <div class="contact-left">
+      <h3>Get in touch</h3>
+      <p>Whether you have a role in mind, a project idea, or just want to connect — my inbox is always open.</p>
+      <div class="contact-btns">
+        <a class="c-btn primary" href="mailto:vaishnavimsatish@gmail.com">✉ vaishnavimsatish@gmail.com</a>
+        <a class="c-btn" href="https://linkedin.com/in/vaisatish" target="_blank">↗ linkedin.com/in/vaisatish</a>
+        <a class="c-btn" href="https://github.com/vaishnavisatish" target="_blank">↗ github.com/vaishnavisatish</a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="c-info"><div class="c-ico">✉️</div><div><div class="c-lbl">Email</div><div class="c-val"><a href="mailto:vaishnavimsatish@gmail.com">vaishnavimsatish@gmail.com</a></div></div></div>
+      <div class="c-info"><div class="c-ico">📞</div><div><div class="c-lbl">Phone</div><div class="c-val">+1 (765) 775-7868</div></div></div>
+      <div class="c-info"><div class="c-ico">📍</div><div><div class="c-lbl">Location</div><div class="c-val">San Francisco, CA, US</div></div></div>
+      <div class="c-info"><div class="c-ico">🎓</div><div><div class="c-lbl">University</div><div class="c-val">Purdue University · MS 2026</div></div></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <span>© 2026 Vaishnavi Satish · All rights reserved.</span>
+  <span>MS Autonomy · Purdue University</span>
+</footer>
+
+</main>
+</div>
+
+<script>
+/* copy email */
+function copyEmail(){
+  navigator.clipboard.writeText('vaishnavimsatish@gmail.com').then(()=>{
+    const b=document.getElementById('copy-btn');
+    b.classList.add('copied');
+    b.innerHTML='<span class="cmd-prefix">✓</span> copied!';
+    setTimeout(()=>{b.classList.remove('copied');b.innerHTML='<span class="cmd-prefix">$</span> copy email';},2200);
+  });
+}
+
+/* project filter */
+document.querySelectorAll('.filt').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filt').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.pc').forEach(card=>{
+      const cats=card.dataset.cats||'';
+      card.classList.toggle('hidden', f!=='all' && !cats.split(' ').includes(f));
+    });
+  });
+});
+
+/* reveal on scroll */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* active sidebar link */
+const secs=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.sidebar .s-link');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-180)cur=s.id;});
+  navLinks.forEach(a=>{a.classList.toggle('on',a.getAttribute('href')==='#'+cur);});
+},{passive:true});
+
+/* blob parallax */
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/innerWidth-.5)*18;
+  const y=(e.clientY/innerHeight-.5)*18;
+  const b1=document.querySelector('.hblob-1');
+  const b2=document.querySelector('.hblob-2');
+  if(b1)b1.style.transform=`translate(${x}px,${y}px)`;
+  if(b2)b2.style.transform=`translate(${-x*.6}px,${-y*.6}px)`;
+});
+</script>
+</body>
+</html>
