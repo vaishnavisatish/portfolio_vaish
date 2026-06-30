@@ -744,5 +744,214 @@ document.addEventListener('mousemove',e=>{
   if(b2)b2.style.transform=`translate(${-x*.6}px,${-y*.6}px)`;
 });
 </script>
+<!-- ══ RESUME CHATBOT WIDGET ══ -->
+<style>
+:root{
+  --bot-w: 380px;
+  --bot-h: 540px;
+}
+#bot-toggle{
+  position:fixed;bottom:1.75rem;right:1.75rem;z-index:999;
+  width:58px;height:58px;border-radius:50%;
+  background:var(--lav);color:#160820;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px rgba(179,157,252,.35);
+  transition:transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+#bot-toggle:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 32px rgba(179,157,252,.45);}
+#bot-toggle svg{width:24px;height:24px;}
+#bot-toggle .x-icon{display:none;}
+#bot-toggle.open .chat-icon{display:none;}
+#bot-toggle.open .x-icon{display:block;}
+
+#bot-panel{
+  position:fixed;bottom:5.25rem;right:1.75rem;z-index:998;
+  width:var(--bot-w);max-width:calc(100vw - 2.5rem);height:var(--bot-h);max-height:calc(100vh - 8rem);
+  background:var(--bg2);border:1px solid var(--b2);border-radius:18px;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.5);
+  opacity:0;transform:translateY(16px) scale(.97);pointer-events:none;
+  transition:opacity .22s var(--ease), transform .22s var(--ease);
+}
+#bot-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+
+.bot-head{
+  padding:1.1rem 1.3rem;border-bottom:1px solid var(--b);
+  display:flex;align-items:center;gap:.7rem;background:var(--bg3);flex-shrink:0;
+}
+.bot-avatar{
+  width:36px;height:36px;border-radius:50%;background:var(--ld);border:1px solid var(--ll);
+  display:flex;align-items:center;justify-content:center;color:var(--lav);font-weight:700;font-size:.85rem;flex-shrink:0;
+}
+.bot-head-text .bh-title{font-size:.86rem;font-weight:700;color:var(--t1);}
+.bot-head-text .bh-sub{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--grn);display:flex;align-items:center;gap:.35rem;}
+.bot-head-text .bh-sub::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--grn);}
+
+.bot-body{flex:1;overflow-y:auto;padding:1.1rem 1rem;display:flex;flex-direction:column;gap:.7rem;}
+.bot-body::-webkit-scrollbar{width:4px;}
+.bot-body::-webkit-scrollbar-thumb{background:var(--ll);border-radius:4px;}
+
+.bmsg{max-width:85%;padding:.65rem .9rem;border-radius:12px;font-size:.82rem;line-height:1.55;}
+.bmsg.bot{align-self:flex-start;background:var(--card);border:1px solid var(--b);color:var(--t1);border-bottom-left-radius:4px;}
+.bmsg.user{align-self:flex-end;background:var(--ld);border:1px solid var(--ll);color:var(--t1);border-bottom-right-radius:4px;}
+.bmsg.typing{display:flex;gap:4px;align-items:center;padding:.8rem .9rem;}
+.bmsg.typing span{width:6px;height:6px;border-radius:50%;background:var(--t3);animation:bdot 1.1s infinite ease-in-out;}
+.bmsg.typing span:nth-child(2){animation-delay:.15s;}
+.bmsg.typing span:nth-child(3){animation-delay:.3s;}
+@keyframes bdot{0%,60%,100%{opacity:.3;transform:translateY(0);}30%{opacity:1;transform:translateY(-3px);}}
+
+.bot-suggest{display:flex;flex-wrap:wrap;gap:.4rem;padding:0 1rem .8rem;flex-shrink:0;}
+.bs-chip{font-family:'DM Mono',monospace;font-size:.66rem;padding:.32rem .65rem;border-radius:20px;border:1px solid var(--b2);color:var(--t2);background:transparent;cursor:pointer;transition:all .2s;}
+.bs-chip:hover{border-color:var(--ll);color:var(--lav);background:var(--ld);}
+
+.bot-input-row{display:flex;gap:.55rem;padding:.85rem;border-top:1px solid var(--b);background:var(--bg3);flex-shrink:0;}
+#bot-input{
+  flex:1;background:var(--bg);border:1px solid var(--b2);border-radius:10px;
+  padding:.6rem .8rem;color:var(--t1);font-family:'Bricolage Grotesque',sans-serif;font-size:.82rem;
+  resize:none;outline:none;max-height:90px;
+}
+#bot-input:focus{border-color:var(--ll);}
+#bot-send{
+  width:38px;height:38px;border-radius:10px;background:var(--lav);border:none;color:#160820;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .2s;
+}
+#bot-send:hover{background:var(--lav2);}
+#bot-send:disabled{opacity:.4;cursor:not-allowed;}
+#bot-send svg{width:16px;height:16px;}
+
+@media (max-width:480px){
+  :root{--bot-w:100vw;--bot-h:100vh;}
+  #bot-panel{bottom:0;right:0;border-radius:0;max-height:100vh;}
+  #bot-toggle{bottom:1.25rem;right:1.25rem;}
+}
+</style>
+
+<button id="bot-toggle" aria-label="Open chat about Vaishnavi">
+  <svg class="chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  <svg class="x-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+</button>
+
+<div id="bot-panel">
+  <div class="bot-head">
+    <div class="bot-avatar">VS</div>
+    <div class="bot-head-text">
+      <div class="bh-title">Ask about Vaishnavi</div>
+      <div class="bh-sub">Answers from her resume</div>
+    </div>
+  </div>
+  <div class="bot-body" id="bot-body"></div>
+  <div class="bot-suggest" id="bot-suggest">
+    <button class="bs-chip" type="button">What's her recent experience?</button>
+    <button class="bs-chip" type="button">What are her core skills?</button>
+    <button class="bs-chip" type="button">Tell me about a full-stack project</button>
+  </div>
+  <div class="bot-input-row">
+    <textarea id="bot-input" rows="1" placeholder="Ask a question…"></textarea>
+    <button id="bot-send" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Point this at your deployed Vercel function URL, e.g.
+  // 'https://your-project.vercel.app/api/chat'. If the chatbot is served from
+  // the same Vercel project as this page, a relative path works as-is.
+  const API_URL = '/api/chat';
+
+  const toggle = document.getElementById('bot-toggle');
+  const panel = document.getElementById('bot-panel');
+  const body = document.getElementById('bot-body');
+  const input = document.getElementById('bot-input');
+  const sendBtn = document.getElementById('bot-send');
+  const suggestRow = document.getElementById('bot-suggest');
+
+  let history = [];
+  let opened = false;
+
+  function addMessage(role, text){
+    const el = document.createElement('div');
+    el.className = 'bmsg ' + (role === 'user' ? 'user' : 'bot');
+    el.textContent = text;
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+    return el;
+  }
+
+  function showTyping(){
+    const el = document.createElement('div');
+    el.className = 'bmsg bot typing';
+    el.id = 'bot-typing';
+    el.innerHTML = '<span></span><span></span><span></span>';
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+  }
+  function hideTyping(){
+    const el = document.getElementById('bot-typing');
+    if (el) el.remove();
+  }
+
+  async function sendMessage(text){
+    if (!text.trim()) return;
+    addMessage('user', text);
+    history.push({ role: 'user', content: text });
+    input.value = '';
+    sendBtn.disabled = true;
+    showTyping();
+
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      });
+      const data = await res.json();
+      hideTyping();
+      if (!res.ok || data.error) {
+        addMessage('bot', "Sorry, I'm having trouble responding right now — please try again in a moment, or email Vaishnavi directly at vaishnavimsatish@gmail.com.");
+        return;
+      }
+      addMessage('bot', data.reply);
+      history.push({ role: 'assistant', content: data.reply });
+    } catch (e) {
+      hideTyping();
+      addMessage('bot', "Sorry, something went wrong reaching the server. Please try again shortly.");
+    } finally {
+      sendBtn.disabled = false;
+    }
+  }
+
+  toggle.addEventListener('click', () => {
+    opened = !opened;
+    toggle.classList.toggle('open', opened);
+    panel.classList.toggle('open', opened);
+    if (opened && body.children.length === 0) {
+      addMessage('bot', "Hi! I'm here to answer questions about Vaishnavi's experience, skills, and projects — based on her resume. What would you like to know?");
+    }
+    if (opened) input.focus();
+  });
+
+  sendBtn.addEventListener('click', () => sendMessage(input.value));
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage(input.value);
+    }
+  });
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 90) + 'px';
+  });
+
+  suggestRow.addEventListener('click', (e) => {
+    if (e.target.classList.contains('bs-chip')) {
+      sendMessage(e.target.textContent);
+      suggestRow.style.display = 'none';
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
